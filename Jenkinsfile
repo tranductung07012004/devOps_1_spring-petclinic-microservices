@@ -33,7 +33,8 @@ pipeline {
                                     classPattern: "target/classes",
                                     sourcePattern: "src/main/java",
                                     changeBuildStatus: true,
-                                    minimumLineCoverage: "70"
+                                    minimumLineCoverage: "70",
+                                    maximumLineCoverage: '90'
                                 )
                                 archiveArtifacts artifacts: 'target/surefire-reports/*.xml', fingerprint: true
                             }
@@ -60,7 +61,8 @@ pipeline {
                                     classPattern: "target/classes",
                                     sourcePattern: "src/main/java",
                                     changeBuildStatus: true,
-                                    minimumLineCoverage: "70"
+                                    minimumLineCoverage: "70",
+                                    maximumLineCoverage: '90'
                                 )
                                 archiveArtifacts artifacts: 'target/surefire-reports/*.xml', fingerprint: true, allowEmptyArchive: true
                             }
@@ -86,7 +88,8 @@ pipeline {
                                     classPattern: "target/classes",
                                     sourcePattern: "src/main/java",
                                     changeBuildStatus: true,
-                                    minimumLineCoverage: "70"
+                                    minimumLineCoverage: "70",
+                                    maximumLineCoverage: '90'
                                 )
                                 archiveArtifacts artifacts: 'target/surefire-reports/*.xml', fingerprint: true
                             }
@@ -112,7 +115,8 @@ pipeline {
                                     classPattern: "target/classes",
                                     sourcePattern: "src/main/java",
                                     changeBuildStatus: true,
-                                    minimumLineCoverage: 70
+                                    minimumLineCoverage: "70",
+                                    maximumLineCoverage: '90'
                                 )
                                 archiveArtifacts artifacts: 'target/surefire-reports/*.xml', fingerprint: true
                             }
