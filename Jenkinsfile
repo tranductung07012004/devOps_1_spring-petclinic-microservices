@@ -33,8 +33,18 @@ pipeline {
                                     classPattern: "target/classes",
                                     sourcePattern: "src/main/java",
                                     changeBuildStatus: true,
-                                    minimumLineCoverage: "70",
-                                    maximumLineCoverage: '90'
+                                    minimumInstructionCoverage: "71",
+                                    maximumInstructionCoverage : "99",
+                                    minimumBranchCoverage: "71",
+                                    maximumBranchCoverage: "99",
+                                    minimumLineCoverage: "71",
+                                    maximumLineCoverage: "99",
+                                    minimumComplexityCoverage: "71",
+                                    maximumComplexityCoverage: "99",
+                                    minimumMethodCoverage: "71",
+                                    maximumMethodCoverage: "99",
+                                    minimumClassCoverage: "71",
+                                    maximumClassCoverage: "99"
                                 )
                                 archiveArtifacts artifacts: 'target/surefire-reports/*.xml', fingerprint: true
                             }
@@ -61,8 +71,18 @@ pipeline {
                                     classPattern: "target/classes",
                                     sourcePattern: "src/main/java",
                                     changeBuildStatus: true,
-                                    minimumLineCoverage: "70",
-                                    maximumLineCoverage: '90'
+                                    minimumInstructionCoverage: "71",
+                                    maximumInstructionCoverage : "99",
+                                    minimumBranchCoverage: "71",
+                                    maximumBranchCoverage: "99",
+                                    minimumLineCoverage: "71",
+                                    maximumLineCoverage: "99",
+                                    minimumComplexityCoverage: "71",
+                                    maximumComplexityCoverage: "99",
+                                    minimumMethodCoverage: "71",
+                                    maximumMethodCoverage: "99",
+                                    minimumClassCoverage: "71",
+                                    maximumClassCoverage: "99"
                                 )
                                 archiveArtifacts artifacts: 'target/surefire-reports/*.xml', fingerprint: true, allowEmptyArchive: true
                             }
@@ -88,8 +108,18 @@ pipeline {
                                     classPattern: "target/classes",
                                     sourcePattern: "src/main/java",
                                     changeBuildStatus: true,
-                                    minimumLineCoverage: "70",
-                                    maximumLineCoverage: '90'
+                                    minimumInstructionCoverage: "71",
+                                    maximumInstructionCoverage : "99",
+                                    minimumBranchCoverage: "71",
+                                    maximumBranchCoverage: "99",
+                                    minimumLineCoverage: "71",
+                                    maximumLineCoverage: "99",
+                                    minimumComplexityCoverage: "71",
+                                    maximumComplexityCoverage: "99",
+                                    minimumMethodCoverage: "71",
+                                    maximumMethodCoverage: "99",
+                                    minimumClassCoverage: "71",
+                                    maximumClassCoverage: "99"
                                 )
                                 archiveArtifacts artifacts: 'target/surefire-reports/*.xml', fingerprint: true
                             }
@@ -115,8 +145,18 @@ pipeline {
                                     classPattern: "target/classes",
                                     sourcePattern: "src/main/java",
                                     changeBuildStatus: true,
-                                    minimumLineCoverage: "70",
-                                    maximumLineCoverage: '90'
+                                    minimumInstructionCoverage: "71",
+                                    maximumInstructionCoverage : "99",
+                                    minimumBranchCoverage: "71",
+                                    maximumBranchCoverage: "99",
+                                    minimumLineCoverage: "71",
+                                    maximumLineCoverage: "99",
+                                    minimumComplexityCoverage: "71",
+                                    maximumComplexityCoverage: "99",
+                                    minimumMethodCoverage: "71",
+                                    maximumMethodCoverage: "99",
+                                    minimumClassCoverage: "71",
+                                    maximumClassCoverage: "99"
                                 )
                                 archiveArtifacts artifacts: 'target/surefire-reports/*.xml', fingerprint: true
                             }
