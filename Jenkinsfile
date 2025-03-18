@@ -5,7 +5,7 @@ pipeline {
         stage('Checkout Code') {
             steps {
                 script {
-                    def branchToCheckout = env.BRANCH_NAME ?: 'master'
+                    def branchToCheckout = env.BRANCH_NAME ?: 'main'
                     echo "Checkout branch: ${branchToCheckout}"
                     git branch: branchToCheckout, url: 'https://github.com/tranductung07012004/devOps_1_spring-petclinic-microservices.git'
                 }
