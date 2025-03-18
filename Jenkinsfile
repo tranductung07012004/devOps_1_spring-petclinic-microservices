@@ -122,7 +122,7 @@ pipeline {
                                 classPattern: "${env.WORKSPACE}/${svc.dir}/target/classes",
                                 sourcePattern: "${env.WORKSPACE}/${svc.dir}/src/main/java",
                                 changeBuildStatus: true,
-                                minimumLineCoverage: 70
+                                minimumLineCoverage: "70"
                             )
                         } else {
                             echo "No test results for ${svc.name}, skipping coverage aggregation."
