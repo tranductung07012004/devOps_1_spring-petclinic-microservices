@@ -48,6 +48,7 @@ pipeline {
                     steps {
                         echo "Running tests for Genai Service..."
                         sh './mvnw -pl spring-petclinic-genai-service clean test'
+                        sh 'find . -name "*.xml"'
                     }
                     post {
                         always {
