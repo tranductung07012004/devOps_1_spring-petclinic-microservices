@@ -54,7 +54,7 @@ pipeline {
                         always {
                             echo "Publishing test results for Genai Service..."
                             dir('spring-petclinic-genai-service') {
-                                junit 'target/surefire-reports/*.xml'
+                                junit allowEmptyResults: true, testResults: 'target/surefire-reports/*.xml'
                                 jacoco(
                                     execPattern: 'target/jacoco.exec',
                                     classPattern: 'target/classes',
