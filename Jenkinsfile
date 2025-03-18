@@ -112,7 +112,7 @@ pipeline {
                                     classPattern: "target/classes",
                                     sourcePattern: "src/main/java",
                                     changeBuildStatus: true,
-                                    minimumLineCoverage: "70"
+                                    minimumLineCoverage: 70
                                 )
                                 archiveArtifacts artifacts: 'target/surefire-reports/*.xml', fingerprint: true
                             }
