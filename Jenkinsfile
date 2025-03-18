@@ -1,5 +1,5 @@
 pipeline {
-    agent any
+    agent 
 
     stages {
         stage('Checkout Code') {
@@ -90,7 +90,7 @@ pipeline {
         }
 
         always {
-            echo "Pipeline finished. Commit SHA: ${params.commit_sha}"
+            echo "Pipeline finished."
         }
     }
 } 
