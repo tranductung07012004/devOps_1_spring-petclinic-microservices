@@ -159,7 +159,6 @@
                             <!-- Chuẩn bị agent JaCoCo trước khi chạy test -->
                             <execution>
                             <id>prepare-agent</id>
-                            <inherited>false</inherited>
                             <goals>
                                 <goal>prepare-agent</goal>
                             </goals>

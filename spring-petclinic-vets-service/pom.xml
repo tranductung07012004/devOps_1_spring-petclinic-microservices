@@ -142,35 +142,5 @@
         </profile>
     </profiles>
 
-    <build>
-    <plugins>
-        <!-- Các plugin khác nếu có -->
-        <plugin>
-            <groupId>org.jacoco</groupId>
-            <artifactId>jacoco-maven-plugin</artifactId>
-            <version>0.8.7</version>
-            <executions>
-                <execution>
-                    <id>prepare-agent</id>
-                    <inherited>false</inherited>
-                    <goals>
-                        <goal>prepare-agent</goal>
-                    </goals>
-                    <configuration>
-                        <!-- Đổi tên file exec riêng cho module Visits -->
-                        <destFile>${project.build.directory}/jacoco-vets.exec</destFile>
-                    </configuration>
-                </execution>
-                <execution>
-                    <id>report</id>
-                    <phase>test</phase>
-                    <goals>
-                        <goal>report</goal>
-                    </goals>
-                </execution>
-            </executions>
-        </plugin>
-    </plugins>
-</build>
 
 </project>
