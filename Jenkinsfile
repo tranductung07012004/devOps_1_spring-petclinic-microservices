@@ -52,27 +52,29 @@ pipeline {
 
         stage('Test') {
             steps {
-                echo "Running tests..."
-                def services = [
-                    'spring-petclinic-customers-service',
-                    'spring-petclinic-genai-service',
-                    'spring-petclinic-vets-service',
-                    'spring-petclinic-visits-service'
-                ]
-                if (env.CHANGED_FILES && env.CHANGED_FILES.trim()) {
-                    def changedFilesList = env.CHANGED_FILES.split('\n')
-                    for (service in services) {
-                        if (changedFilesList.find { it.startsWith(service) }) {
-                            echo "Testing ${service}..."
-                            dir(service) {
-                                sh './mvnw clean test'
+                script {
+                    echo "Running tests..."
+                    def services = [
+                        'spring-petclinic-customers-service',
+                        'spring-petclinic-genai-service',
+                        'spring-petclinic-vets-service',
+                        'spring-petclinic-visits-service'
+                    ]
+                    if (env.CHANGED_FILES && env.CHANGED_FILES.trim()) {
+                        def changedFilesList = env.CHANGED_FILES.split('\n')
+                        for (service in services) {
+                            if (changedFilesList.find { it.startsWith(service) }) {
+                                echo "Testing ${service}..."
+                                dir(service) {
+                                    sh './mvnw clean test'
+                                }
+                            } else {
+                                echo "Skipping ${service}, no changes detected."
                             }
-                        } else {
-                            echo "Skipping ${service}, no changes detected."
                         }
+                    } else {
+                        echo "No files changed. Skipping test."
                     }
-                } else {
-                    echo "No files changed. Skipping test."
                 }
             }
             post {
