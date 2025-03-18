@@ -78,7 +78,7 @@ pipeline {
                             dir('spring-petclinic-vets-service') {
                                 junit 'target/surefire-reports/*.xml'
                                 jacoco(
-                                    execPattern: 'target/jacoco.exec',
+                                    execPattern: 'target/jacoco-vets.exec',
                                     classPattern: 'target/classes',
                                     sourcePattern: 'src/main/java'
                                 )
