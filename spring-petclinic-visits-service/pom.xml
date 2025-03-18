@@ -135,7 +135,6 @@
                         <goal>prepare-agent</goal>
                     </goals>
                     <configuration>
-                        <!-- Đổi tên file exec riêng cho module Visits -->
                         <destFile>${project.build.directory}/jacoco-visits.exec</destFile>
                     </configuration>
                 </execution>
