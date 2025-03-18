@@ -34,4 +34,4 @@ public class VetsServiceApplication {
 	}
 }
 
-// Được
+// 12345
