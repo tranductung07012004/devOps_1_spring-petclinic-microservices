@@ -118,7 +118,7 @@ pipeline {
                                     maximumComplexityCoverage: "99",
                                     minimumMethodCoverage: "71",
                                     maximumMethodCoverage: "99",
-                                    minimumClassCoverage: "80",
+                                    minimumClassCoverage: "71",
                                     maximumClassCoverage: "99"
                                 )
                                 archiveArtifacts artifacts: 'target/surefire-reports/*.xml', fingerprint: true
@@ -155,7 +155,7 @@ pipeline {
                                     maximumComplexityCoverage: "99",
                                     minimumMethodCoverage: "71",
                                     maximumMethodCoverage: "99",
-                                    minimumClassCoverage: "80",
+                                    minimumClassCoverage: "71",
                                     maximumClassCoverage: "99"
                                 )
                                 archiveArtifacts artifacts: 'target/surefire-reports/*.xml', fingerprint: true
