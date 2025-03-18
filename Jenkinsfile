@@ -5,7 +5,7 @@ pipeline {
         stage('Checkout Code') {
             steps {
                 script {
-                    def branchToCheckout = env.BRANCH_NAME ?: 'main'
+                    def branchToCheckout = env.BRANCH_NAME ?: 'master'
                     echo "Checkout branch: ${branchToCheckout}"
                     git branch: branchToCheckout, url: 'https://github.com/tranductung07012004/devOps_1_spring-petclinic-microservices.git'
                 }
@@ -80,13 +80,18 @@ pipeline {
             post {
                 always {
                     echo "Publishing test results..."
+                    // Kiểm tra lại đường dẫn tệp báo cáo JUnit
                     junit '*/target/surefire-reports/.xml'
+                    
+                    // Kiểm tra lại đường dẫn tệp JaCoCo
                     jacoco(
-                        execPattern: '**/target/jacoco.exec',
+                        execPattern: '**/target/jacoco.exec', // Đảm bảo đúng đường dẫn
                         classPattern: '**/target/classes',
                         sourcePattern: '**/src/main/java'
                     )
-                    archiveArtifacts artifacts: '*/surefire-reports/.xml', fingerprint: true
+                    
+                    // Kiểm tra lại đường dẫn lưu trữ Artifact
+                    archiveArtifacts artifacts: '*/target/surefire-reports/.xml', fingerprint: true
                 }
             }
         }
