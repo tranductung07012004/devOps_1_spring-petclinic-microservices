@@ -21,21 +21,21 @@ pipeline {
                     }
                     steps {
                         echo "Running tests for Customers Service..."
-                        dir('spring-petclinic-customers-service') {
-                            sh './mvnw clean test'
-                        }
+                        // Chạy test cho module Customers từ thư mục gốc
+                        sh './mvnw -pl spring-petclinic-customers-service clean test'
                     }
                     post {
                         always {
                             echo "Publishing test results for Customers Service..."
+                            // Chuyển vào thư mục module để thu thập báo cáo
                             dir('spring-petclinic-customers-service') {
-                                junit '**/target/surefire-reports/*.xml'
+                                junit 'target/surefire-reports/*.xml'
                                 jacoco(
-                                    execPattern: '**/target/jacoco.exec',
-                                    classPattern: '**/target/classes',
-                                    sourcePattern: '**/src/main/java'
+                                    execPattern: 'target/jacoco.exec',
+                                    classPattern: 'target/classes',
+                                    sourcePattern: 'src/main/java'
                                 )
-                                archiveArtifacts artifacts: '**/surefire-reports/*.xml', fingerprint: true
+                                archiveArtifacts artifacts: 'target/surefire-reports/*.xml', fingerprint: true
                             }
                         }
                     }
@@ -47,21 +47,19 @@ pipeline {
                     }
                     steps {
                         echo "Running tests for Genai Service..."
-                        dir('spring-petclinic-genai-service') {
-                            sh './mvnw clean test'
-                        }
+                        sh './mvnw -pl spring-petclinic-genai-service clean test'
                     }
                     post {
                         always {
                             echo "Publishing test results for Genai Service..."
                             dir('spring-petclinic-genai-service') {
-                                junit '**/target/surefire-reports/*.xml'
+                                junit 'target/surefire-reports/*.xml'
                                 jacoco(
-                                    execPattern: '**/target/jacoco.exec',
-                                    classPattern: '**/target/classes',
-                                    sourcePattern: '**/src/main/java'
+                                    execPattern: 'target/jacoco.exec',
+                                    classPattern: 'target/classes',
+                                    sourcePattern: 'src/main/java'
                                 )
-                                archiveArtifacts artifacts: '**/surefire-reports/*.xml', fingerprint: true
+                                archiveArtifacts artifacts: 'target/surefire-reports/*.xml', fingerprint: true
                             }
                         }
                     }
@@ -73,21 +71,19 @@ pipeline {
                     }
                     steps {
                         echo "Running tests for Vets Service..."
-                        dir('spring-petclinic-vets-service') {
-                            sh './mvnw clean test'
-                        }
+                        sh './mvnw -pl spring-petclinic-vets-service clean test'
                     }
                     post {
                         always {
                             echo "Publishing test results for Vets Service..."
                             dir('spring-petclinic-vets-service') {
-                                junit '**/target/surefire-reports/*.xml'
+                                junit 'target/surefire-reports/*.xml'
                                 jacoco(
-                                    execPattern: '**/target/jacoco.exec',
-                                    classPattern: '**/target/classes',
-                                    sourcePattern: '**/src/main/java'
+                                    execPattern: 'target/jacoco.exec',
+                                    classPattern: 'target/classes',
+                                    sourcePattern: 'src/main/java'
                                 )
-                                archiveArtifacts artifacts: '**/surefire-reports/*.xml', fingerprint: true
+                                archiveArtifacts artifacts: 'target/surefire-reports/*.xml', fingerprint: true
                             }
                         }
                     }
@@ -99,21 +95,19 @@ pipeline {
                     }
                     steps {
                         echo "Running tests for Visits Service..."
-                        dir('spring-petclinic-visits-service') {
-                            sh './mvnw clean test'
-                        }
+                        sh './mvnw -pl spring-petclinic-visits-service clean test'
                     }
                     post {
                         always {
                             echo "Publishing test results for Visits Service..."
                             dir('spring-petclinic-visits-service') {
-                                junit '**/target/surefire-reports/*.xml'
+                                junit 'target/surefire-reports/*.xml'
                                 jacoco(
-                                    execPattern: '**/target/jacoco.exec',
-                                    classPattern: '**/target/classes',
-                                    sourcePattern: '**/src/main/java'
+                                    execPattern: 'target/jacoco.exec',
+                                    classPattern: 'target/classes',
+                                    sourcePattern: 'src/main/java'
                                 )
-                                archiveArtifacts artifacts: '**/surefire-reports/*.xml', fingerprint: true
+                                archiveArtifacts artifacts: 'target/surefire-reports/*.xml', fingerprint: true
                             }
                         }
                     }
@@ -136,9 +130,8 @@ pipeline {
                     }
                     steps {
                         echo "Building Customers Service..."
-                        dir('spring-petclinic-customers-service') {
-                            sh './mvnw clean install -DskipTests'
-                        }
+                        // Sử dụng -am (also make) nếu cần build các module phụ thuộc
+                        sh './mvnw -pl spring-petclinic-customers-service -am clean install -DskipTests'
                     }
                 }
                 
@@ -148,9 +141,7 @@ pipeline {
                     }
                     steps {
                         echo "Building Genai Service..."
-                        dir('spring-petclinic-genai-service') {
-                            sh './mvnw clean install -DskipTests'
-                        }
+                        sh './mvnw -pl spring-petclinic-genai-service -am clean install -DskipTests'
                     }
                 }
                 
@@ -160,9 +151,7 @@ pipeline {
                     }
                     steps {
                         echo "Building Vets Service..."
-                        dir('spring-petclinic-vets-service') {
-                            sh './mvnw clean install -DskipTests'
-                        }
+                        sh './mvnw -pl spring-petclinic-vets-service -am clean install -DskipTests'
                     }
                 }
                 
@@ -172,9 +161,7 @@ pipeline {
                     }
                     steps {
                         echo "Building Visits Service..."
-                        dir('spring-petclinic-visits-service') {
-                            sh './mvnw clean install -DskipTests'
-                        }
+                        sh './mvnw -pl spring-petclinic-visits-service -am clean install -DskipTests'
                     }
                 }
             }
