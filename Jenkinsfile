@@ -29,9 +29,9 @@ pipeline {
                             dir('spring-petclinic-customers-service') {
                                 junit 'target/surefire-reports/*.xml'
                                 jacoco(
-                                    execPattern: 'spring-petclinic-customers-service/target/jacoco.exec',
-                                    classPattern: 'spring-petclinic-customers-service/target/classes',
-                                    sourcePattern: 'spring-petclinic-customers-service/src/main/java'
+                                    execPattern: 'target/jacoco.exec',
+                                    classPattern: 'target/classes',
+                                    sourcePattern: 'src/main/java'
                                 )
                                 archiveArtifacts artifacts: 'target/surefire-reports/*.xml', fingerprint: true
                             }
@@ -54,9 +54,9 @@ pipeline {
                             dir('spring-petclinic-genai-service') {
                                 junit allowEmptyResults: true, testResults: 'target/surefire-reports/*.xml'
                                 jacoco(
-                                    execPattern: 'spring-petclinic-genai-service/target/jacoco.exec',
-                                    classPattern: 'spring-petclinic-genai-service/target/classes',
-                                    sourcePattern: 'spring-petclinic-genai-service/src/main/java'
+                                    execPattern: 'target/jacoco.exec',
+                                    classPattern: 'target/classes',
+                                    sourcePattern: 'src/main/java'
                                 )
                                 archiveArtifacts artifacts: 'target/surefire-reports/*.xml', fingerprint: true, allowEmptyArchive: true
                             }
@@ -78,9 +78,9 @@ pipeline {
                             dir('spring-petclinic-vets-service') {
                                 junit 'target/surefire-reports/*.xml'
                                 jacoco(
-                                    execPattern: 'spring-petclinic-vets-service/target/jacoco.exec',
-                                    classPattern: 'spring-petclinic-vets-service/target/classes',
-                                    sourcePattern: 'spring-petclinic-vets-service/src/main/java'
+                                    execPattern: 'target/jacoco.exec',
+                                    classPattern: 'target/classes',
+                                    sourcePattern: 'src/main/java'
                                 )
                                 archiveArtifacts artifacts: 'target/surefire-reports/*.xml', fingerprint: true
                             }
@@ -102,9 +102,9 @@ pipeline {
                             dir('spring-petclinic-visits-service') {
                                 junit 'target/surefire-reports/*.xml'
                                 jacoco(
-                                    execPattern: 'spring-petclinic-visits-service/target/jacoco.exec',
-                                    classPattern: 'spring-petclinic-visits-service/target/classes',
-                                    sourcePattern: 'spring-petclinic-visits-service/src/main/java'
+                                    execPattern: 'target/jacoco.exec',
+                                    classPattern: 'target/classes',
+                                    sourcePattern: 'src/main/java'
                                 )
                                 archiveArtifacts artifacts: 'target/surefire-reports/*.xml', fingerprint: true
                             }
