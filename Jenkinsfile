@@ -1,48 +1,89 @@
 pipeline {
     agent any
 
+    environment {
+        MOD_FILES = ''
+    }
+
     stages {
-        stage('Checkout Code') {
+        stage('Detect Changes') {
             steps {
                 script {
-                    def branchToCheckout = env.BRANCH_NAME ?: 'master'
-                    echo "Checkout branch: ${branchToCheckout}"
-                    git branch: branchToCheckout, url: 'https://github.com/tranductung07012004/devOps_1_spring-petclinic-microservices.git'
+                    def services = []
+                    MOD_FILES = sh(script: 'git diff --name-only HEAD~1', returnStdout: true).trim()
+                    echo "Modified files: ${MOD_FILES}"
+
+                    MOD_FILES.split("\n").each { file ->
+                        if (file.startsWith("spring-petclinic-") && file.split("/").size() > 1) {
+                            def svc = file.split("/")[0]
+                            if (!services.contains(svc)) {
+                                services << svc
+                            }
+                        }
+                    }
+
+                    if (services.isEmpty()) {
+                        echo "No changes detected, skipping."
+                        currentBuild.result = 'SUCCESS'
+                        return
+                    }
+
+                    echo "Affected services: ${services}"
+                    env.SERVICES = services.join(',') 
                 }
             }
         }
 
-        stage('Test') {
+        stage('Test & Coverage') {
+            when {
+                expression { return env.SERVICES != null && env.SERVICES != "" }
+            }
             steps {
-                echo "Running tests..."
-                sh './mvnw clean test'
+                script {
+                    def services = env.SERVICES.split(',')
+                    services.each { svc ->
+                        echo "Testing: ${svc}"
+                        dir(svc) {
+                            sh '../mvnw clean test'
+                            sh '../mvnw jacoco:report'
+                        }
+                    }
+                }
             }
             post {
                 always {
-                    echo "Publishing test results..."
                     junit '**/target/surefire-reports/*.xml'
-                    jacoco(
-                        execPattern: '**/target/jacoco.exec',
-                        classPattern: '**/target/classes',
-                        sourcePattern: '**/src/main/java'
-                    )
-                    archiveArtifacts artifacts: '**/surefire-reports/*.xml', fingerprint: true
+                    script {
+                        def services = env.SERVICES.split(',')
+                        services.each { svc ->
+                            echo "Generating JaCoCo for: ${svc}"
+                            jacoco(
+                                execPattern: "${svc}/target/jacoco.exec",
+                                classPattern: "${svc}/target/classes",
+                                sourcePattern: "${svc}/src/main/java",
+                                exclusionPattern: "${svc}/src/test/**",
+                                minimumLineCoverage: '70',
+                                changeBuildStatus: true
+                            )
+                        }
+                    }
                 }
-            }
-        }
-
-        stage('Debug') {
-            steps {
-                echo "Checking test report files..."
-                sh 'find . -name "*.xml"'
             }
         }
 
         stage('Build') {
+            when {
+                expression { return env.SERVICES != null && env.SERVICES != "" }
+            }
             steps {
                 script {
-                    echo "Performing regular build..."
-                    sh './mvnw clean install -DskipTests'
+                    def services = env.SERVICES.split(',')
+                    services.each { svc ->
+                        echo "Building: ${svc}"
+                        dir(svc) {
+                            sh '../mvnw clean package -DskipTests'
+                        }
+                    }
                 }
             }
         }
@@ -52,16 +93,16 @@ pipeline {
         success {
             script {
                 def commitId = env.GIT_COMMIT
-                echo "Sending 'success' status to GitHub for commit: ${commitId}"
+                echo "Sending 'success' to GitHub: ${commitId}"
                 def response = httpRequest(
                     url: "https://api.github.com/repos/tranductung07012004/devOps_1_spring-petclinic-microservices/statuses/${commitId}",
                     httpMode: 'POST',
                     contentType: 'APPLICATION_JSON',
                     requestBody: """{
-                        "state": "success",
-                        "description": "Build passed",
-                        "context": "ci/jenkins-pipeline",
-                        "target_url": "${env.BUILD_URL}"
+                        \"state\": \"success\",
+                        \"description\": \"Build passed\",
+                        \"context\": \"ci/jenkins-pipeline\",
+                        \"target_url\": \"${env.BUILD_URL}\"
                     }""",
                     authentication: 'github-token'
                 )
@@ -72,16 +113,16 @@ pipeline {
         failure {
             script {
                 def commitId = env.GIT_COMMIT
-                echo "Sending 'failure' status to GitHub for commit: ${commitId}"
+                echo "Sending 'failure' to GitHub: ${commitId}"
                 def response = httpRequest(
                     url: "https://api.github.com/repos/tranductung07012004/devOps_1_spring-petclinic-microservices/statuses/${commitId}",
                     httpMode: 'POST',
                     contentType: 'APPLICATION_JSON',
                     requestBody: """{
-                        "state": "failure",
-                        "description": "Build failed",
-                        "context": "ci/jenkins-pipeline",
-                        "target_url": "${env.BUILD_URL}"
+                        \"state\": \"failure\",
+                        \"description\": \"Build failed\",
+                        \"context\": \"ci/jenkins-pipeline\",
+                        \"target_url\": \"${env.BUILD_URL}\"
                     }""",
                     authentication: 'github-token'
                 )
@@ -90,7 +131,7 @@ pipeline {
         }
 
         always {
-            echo "Pipeline finished. Commit SHA: ${params.commit_sha}"
+            echo "Pipeline execution complete."
         }
     }
-} 
+}
