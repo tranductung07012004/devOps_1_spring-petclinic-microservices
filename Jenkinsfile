@@ -28,6 +28,13 @@ pipeline {
                             echo "Publishing test results for Customers Service..."
                             dir('spring-petclinic-customers-service') {
                                 junit 'target/surefire-reports/*.xml'
+                                jacoco(
+                                    execPattern: "target/jacoco.exec",
+                                    classPattern: "target/classes",
+                                    sourcePattern: "src/main/java",
+                                    changeBuildStatus: true,
+                                    minimumLineCoverage: "70"
+                                )
                                 archiveArtifacts artifacts: 'target/surefire-reports/*.xml', fingerprint: true
                             }
                         }
@@ -48,6 +55,13 @@ pipeline {
                             echo "Publishing test results for Genai Service..."
                             dir('spring-petclinic-genai-service') {
                                 junit allowEmptyResults: true, testResults: 'target/surefire-reports/*.xml'
+                                jacoco(
+                                    execPattern: "target/jacoco.exec",
+                                    classPattern: "target/classes",
+                                    sourcePattern: "src/main/java",
+                                    changeBuildStatus: true,
+                                    minimumLineCoverage: "70"
+                                )
                                 archiveArtifacts artifacts: 'target/surefire-reports/*.xml', fingerprint: true, allowEmptyArchive: true
                             }
                         }
@@ -67,6 +81,13 @@ pipeline {
                             echo "Publishing test results for Vets Service..."
                             dir('spring-petclinic-vets-service') {
                                 junit 'target/surefire-reports/*.xml'
+                                jacoco(
+                                    execPattern: "target/jacoco.exec",
+                                    classPattern: "target/classes",
+                                    sourcePattern: "src/main/java",
+                                    changeBuildStatus: true,
+                                    minimumLineCoverage: "70"
+                                )
                                 archiveArtifacts artifacts: 'target/surefire-reports/*.xml', fingerprint: true
                             }
                         }
@@ -86,6 +107,13 @@ pipeline {
                             echo "Publishing test results for Visits Service..."
                             dir('spring-petclinic-visits-service') {
                                 junit 'target/surefire-reports/*.xml'
+                                jacoco(
+                                    execPattern: "target/jacoco.exec",
+                                    classPattern: "target/classes",
+                                    sourcePattern: "src/main/java",
+                                    changeBuildStatus: true,
+                                    minimumLineCoverage: "70"
+                                )
                                 archiveArtifacts artifacts: 'target/surefire-reports/*.xml', fingerprint: true
                             }
                         }
@@ -100,38 +128,6 @@ pipeline {
                 sh 'find . -name "*.xml"'
             }
         }
-
-        stage('Aggregate Coverage') {
-            steps {
-                script {
-                    // Kiểm tra và xử lý cho từng service
-                    def services = [
-                        [name: 'Genai Service', dir: 'spring-petclinic-genai-service'],
-                        [name: 'Customers Service', dir: 'spring-petclinic-customers-service'],
-                        [name: 'Vets Service', dir: 'spring-petclinic-vets-service'],
-                        [name: 'Visits Service', dir: 'spring-petclinic-visits-service']
-                    ]
-                    
-                    services.each { svc ->
-                        def jacocoFile = "${svc.dir}/target/jacoco.exec"
-                        if (fileExists(jacocoFile)) {
-                            echo "Aggregating coverage for ${svc.name}"
-                            jacoco(
-                                // Sử dụng đường dẫn tuyệt đối để đảm bảo chỉ quét file của module đó
-                                execPattern: "${env.WORKSPACE}/${svc.dir}/target/jacoco.exec",
-                                classPattern: "${env.WORKSPACE}/${svc.dir}/target/classes",
-                                sourcePattern: "${env.WORKSPACE}/${svc.dir}/src/main/java",
-                                changeBuildStatus: true,
-                                minimumLineCoverage: "70"
-                            )
-                        } else {
-                            echo "No test results for ${svc.name}, skipping coverage aggregation."
-                        }
-                    }
-                }
-            }
-        }
-
 
         
         stage('Build Services') {
