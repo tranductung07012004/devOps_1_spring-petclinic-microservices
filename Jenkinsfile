@@ -21,13 +21,11 @@ pipeline {
                     }
                     steps {
                         echo "Running tests for Customers Service..."
-                        // Chạy test cho module Customers từ thư mục gốc
                         sh './mvnw -pl spring-petclinic-customers-service clean test'
                     }
                     post {
                         always {
                             echo "Publishing test results for Customers Service..."
-                            // Chuyển vào thư mục module để thu thập báo cáo
                             dir('spring-petclinic-customers-service') {
                                 junit 'target/surefire-reports/*.xml'
                                 jacoco(
@@ -131,7 +129,6 @@ pipeline {
                     }
                     steps {
                         echo "Building Customers Service..."
-                        // Sử dụng -am (also make) nếu cần build các module phụ thuộc
                         sh './mvnw -pl spring-petclinic-customers-service -am clean install -DskipTests'
                     }
                 }
