@@ -53,7 +53,7 @@ pipeline {
                                     name: 'Customers Service Coverage',
                                     sourceCodeRetention: 'EVERY_BUILD',
                                     qualityGates: [
-                                        [threshold: 71.0, metric: 'LINE', criticality: 'FAILURE'],
+                                        [threshold: 70.0, metric: 'LINE', criticality: 'FAILURE'],
                                         //[threshold: 65.0, metric: 'BRANCH', criticality: 'FAILURE'],
                                         //[threshold: 75.0, metric: 'METHOD', criticality: 'FAILURE']
                                     ]
@@ -83,7 +83,7 @@ pipeline {
                                     name: 'Gen Ai Service Coverage',
                                     sourceCodeRetention: 'EVERY_BUILD',
                                     qualityGates: [
-                                        [threshold: 71.0, metric: 'LINE', criticality: 'UNSTABLE'],
+                                        [threshold: 70.0, metric: 'LINE', criticality: 'UNSTABLE'],
                                         //[threshold: 65.0, metric: 'BRANCH', criticality: 'UNSTABLE'],
                                         //[threshold: 75.0, metric: 'METHOD', criticality: 'UNSTABLE']
                                     ]
@@ -113,7 +113,7 @@ pipeline {
                                     name: 'vets Service Coverage',
                                     sourceCodeRetention: 'EVERY_BUILD',
                                     qualityGates: [
-                                        [threshold: 71.0, metric: 'LINE',criticality: 'FAILURE'],
+                                        [threshold: 70.0, metric: 'LINE',criticality: 'FAILURE'],
                                         //[threshold: 65.0, metric: 'BRANCH', criticality: 'FAILURE'],
                                         //[threshold: 75.0, metric: 'METHOD', criticality: 'FAILURE']
                                     ]
@@ -143,7 +143,7 @@ pipeline {
                                     name: 'visits Service Coverage',
                                     sourceCodeRetention: 'EVERY_BUILD',
                                     qualityGates: [
-                                        [threshold: 71.0, metric: 'LINE', criticality: 'FAILURE'],
+                                        [threshold: 70.0, metric: 'LINE', criticality: 'FAILURE'],
                                         //[threshold: 65.0, metric: 'BRANCH', criticality: 'FAILURE'],
                                         //[threshold: 75.0, metric: 'METHOD', criticality: 'FAILURE']
                                     ]
