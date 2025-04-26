@@ -9,4 +9,3 @@ resources:
   - genai-service.yaml
   - vets-service.yaml
   - visits-service.yaml
-  - petclinic-ingress.yaml

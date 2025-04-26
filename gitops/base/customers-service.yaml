@@ -1,21 +1,22 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: genai-service
-  namespace: petclinic-dev
+  name: customers-service
+  annotations:
+    argocd.argoproj.io/sync-wave: "0"
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: genai-service
+      app: customers-service
   template:
     metadata:
       labels:
-        app: genai-service
+        app: customers-service
     spec:
       containers:
-      - name: genai-service
-        image: ${DOCKER_USERNAME}/spring-petclinic-genai-service:${IMAGE_TAG}
+      - name: customers-service
+        image: tranductung0701/spring-petclinic-customers-service:latest
         ports:
         - containerPort: 8080
         env:
@@ -25,13 +26,14 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: genai-service
-  namespace: petclinic-dev
+  name: customers-service
+  annotations:
+    argocd.argoproj.io/sync-wave: "0"
 spec:
   type: NodePort
   ports:
-    - port: 8081
+    - port: 8080
       targetPort: 8080
-      nodePort: 30084
+      #nodePort: 30081
   selector:
-    app: genai-service
+    app: customers-service

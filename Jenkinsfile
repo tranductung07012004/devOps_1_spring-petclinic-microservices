@@ -52,11 +52,11 @@ pipeline {
                                     id: 'customers-service-coverage',
                                     name: 'Customers Service Coverage',
                                     sourceCodeRetention: 'EVERY_BUILD',
-                                    // qualityGates: [
-                                    //     [threshold: 71.0, metric: 'LINE', criticality: 'FAILURE'],
-                                    //     [threshold: 65.0, metric: 'BRANCH', criticality: 'FAILURE'],
-                                    //     [threshold: 75.0, metric: 'METHOD', criticality: 'FAILURE']
-                                    // ]
+                                    qualityGates: [
+                                        [threshold: 71.0, metric: 'LINE', criticality: 'FAILURE'],
+                                        [threshold: 65.0, metric: 'BRANCH', criticality: 'FAILURE'],
+                                        [threshold: 75.0, metric: 'METHOD', criticality: 'FAILURE']
+                                    ]
                                 )
                                 archiveArtifacts artifacts: 'target/surefire-reports/*.xml', fingerprint: true
                             }
@@ -82,11 +82,11 @@ pipeline {
                                     id: 'genai-service-coverage',
                                     name: 'Gen Ai Service Coverage',
                                     sourceCodeRetention: 'EVERY_BUILD',
-                                    // qualityGates: [
-                                    //     [threshold: 71.0, metric: 'LINE', criticality: 'UNSTABLE'],
-                                    //     [threshold: 65.0, metric: 'BRANCH', criticality: 'UNSTABLE'],
-                                    //     [threshold: 75.0, metric: 'METHOD', criticality: 'UNSTABLE']
-                                    // ]
+                                    qualityGates: [
+                                        [threshold: 71.0, metric: 'LINE', criticality: 'UNSTABLE'],
+                                        [threshold: 65.0, metric: 'BRANCH', criticality: 'UNSTABLE'],
+                                        [threshold: 75.0, metric: 'METHOD', criticality: 'UNSTABLE']
+                                    ]
                                 )
                                 archiveArtifacts artifacts: 'target/surefire-reports/*.xml', fingerprint: true, allowEmptyArchive: true
                             }
@@ -112,11 +112,11 @@ pipeline {
                                     id: 'vets-service-coverage',
                                     name: 'vets Service Coverage',
                                     sourceCodeRetention: 'EVERY_BUILD',
-                                    // qualityGates: [
-                                    //     [threshold: 71.0, metric: 'LINE',criticality: 'FAILURE'],
-                                    //     [threshold: 65.0, metric: 'BRANCH', criticality: 'FAILURE'],
-                                    //     [threshold: 75.0, metric: 'METHOD', criticality: 'FAILURE']
-                                    // ]
+                                    qualityGates: [
+                                        [threshold: 71.0, metric: 'LINE',criticality: 'FAILURE'],
+                                        [threshold: 65.0, metric: 'BRANCH', criticality: 'FAILURE'],
+                                        [threshold: 75.0, metric: 'METHOD', criticality: 'FAILURE']
+                                    ]
                                 )
                                 archiveArtifacts artifacts: 'target/surefire-reports/*.xml', fingerprint: true
                             }
@@ -142,11 +142,11 @@ pipeline {
                                     id: 'visits-service-coverage',
                                     name: 'visits Service Coverage',
                                     sourceCodeRetention: 'EVERY_BUILD',
-                                    // qualityGates: [
-                                    //     [threshold: 71.0, metric: 'LINE', criticality: 'FAILURE'],
-                                    //     [threshold: 65.0, metric: 'BRANCH', criticality: 'FAILURE'],
-                                    //     [threshold: 75.0, metric: 'METHOD', criticality: 'FAILURE']
-                                    // ]
+                                    qualityGates: [
+                                        [threshold: 71.0, metric: 'LINE', criticality: 'FAILURE'],
+                                        [threshold: 65.0, metric: 'BRANCH', criticality: 'FAILURE'],
+                                        [threshold: 75.0, metric: 'METHOD', criticality: 'FAILURE']
+                                    ]
                                 )
                                 archiveArtifacts artifacts: 'target/surefire-reports/*.xml', fingerprint: true
                             }

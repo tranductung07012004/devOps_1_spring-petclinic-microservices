@@ -1,0 +1,20 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+namespace: petclinic-staging
+resources:
+  - ../base
+images:
+  - name: tranductung0701/spring-petclinic-api-gateway
+    newTag: cf91d2f
+  - name: tranductung0701/spring-petclinic-config-server
+    newTag: cf91d2f
+  - name: tranductung0701/spring-petclinic-customers-service
+    newTag: cf91d2f
+  - name: tranductung0701/spring-petclinic-discovery-server
+    newTag: cf91d2f
+  - name: tranductung0701/spring-petclinic-vets-service
+    newTag: cf91d2f
+  - name: tranductung0701/spring-petclinic-visits-service
+    newTag: cf91d2f
+  - name: tranductung0701/spring-petclinic-genai-service
+    newTag: cf91d2f

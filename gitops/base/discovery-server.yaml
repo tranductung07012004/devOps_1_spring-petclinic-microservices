@@ -2,7 +2,8 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: discovery-server
-  namespace: petclinic-dev
+  annotations:
+    argocd.argoproj.io/sync-wave: "-1"
 spec:
   selector:
     matchLabels:
@@ -14,7 +15,7 @@ spec:
     spec:
       containers:
       - name: discovery-server
-        image: ${DOCKER_USERNAME}/spring-petclinic-discovery-server:${IMAGE_TAG}
+        image: tranductung0701/spring-petclinic-discovery-server:latest
         ports:
         - containerPort: 8761
         resources:
@@ -32,12 +33,13 @@ apiVersion: v1
 kind: Service
 metadata:
   name: discovery-server
-  namespace: petclinic-dev
+  annotations:
+    argocd.argoproj.io/sync-wave: "-1"
 spec:
   selector:
     app: discovery-server
   ports:
   - port: 8761
     targetPort: 8761
-    nodePort: 30761
+    #nodePort: 30761
   type: NodePort
