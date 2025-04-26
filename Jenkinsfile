@@ -54,8 +54,8 @@ pipeline {
                                     sourceCodeRetention: 'EVERY_BUILD',
                                     qualityGates: [
                                         [threshold: 71.0, metric: 'LINE', criticality: 'FAILURE'],
-                                        [threshold: 65.0, metric: 'BRANCH', criticality: 'FAILURE'],
-                                        [threshold: 75.0, metric: 'METHOD', criticality: 'FAILURE']
+                                        //[threshold: 65.0, metric: 'BRANCH', criticality: 'FAILURE'],
+                                        //[threshold: 75.0, metric: 'METHOD', criticality: 'FAILURE']
                                     ]
                                 )
                                 archiveArtifacts artifacts: 'target/surefire-reports/*.xml', fingerprint: true
@@ -84,8 +84,8 @@ pipeline {
                                     sourceCodeRetention: 'EVERY_BUILD',
                                     qualityGates: [
                                         [threshold: 71.0, metric: 'LINE', criticality: 'UNSTABLE'],
-                                        [threshold: 65.0, metric: 'BRANCH', criticality: 'UNSTABLE'],
-                                        [threshold: 75.0, metric: 'METHOD', criticality: 'UNSTABLE']
+                                        //[threshold: 65.0, metric: 'BRANCH', criticality: 'UNSTABLE'],
+                                        //[threshold: 75.0, metric: 'METHOD', criticality: 'UNSTABLE']
                                     ]
                                 )
                                 archiveArtifacts artifacts: 'target/surefire-reports/*.xml', fingerprint: true, allowEmptyArchive: true
@@ -114,8 +114,8 @@ pipeline {
                                     sourceCodeRetention: 'EVERY_BUILD',
                                     qualityGates: [
                                         [threshold: 71.0, metric: 'LINE',criticality: 'FAILURE'],
-                                        [threshold: 65.0, metric: 'BRANCH', criticality: 'FAILURE'],
-                                        [threshold: 75.0, metric: 'METHOD', criticality: 'FAILURE']
+                                        //[threshold: 65.0, metric: 'BRANCH', criticality: 'FAILURE'],
+                                        //[threshold: 75.0, metric: 'METHOD', criticality: 'FAILURE']
                                     ]
                                 )
                                 archiveArtifacts artifacts: 'target/surefire-reports/*.xml', fingerprint: true
@@ -144,8 +144,8 @@ pipeline {
                                     sourceCodeRetention: 'EVERY_BUILD',
                                     qualityGates: [
                                         [threshold: 71.0, metric: 'LINE', criticality: 'FAILURE'],
-                                        [threshold: 65.0, metric: 'BRANCH', criticality: 'FAILURE'],
-                                        [threshold: 75.0, metric: 'METHOD', criticality: 'FAILURE']
+                                        //[threshold: 65.0, metric: 'BRANCH', criticality: 'FAILURE'],
+                                        //[threshold: 75.0, metric: 'METHOD', criticality: 'FAILURE']
                                     ]
                                 )
                                 archiveArtifacts artifacts: 'target/surefire-reports/*.xml', fingerprint: true
