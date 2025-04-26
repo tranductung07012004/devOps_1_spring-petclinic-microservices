@@ -10,7 +10,7 @@ class OwnerTest {
     @Test
     void testGettersAndSetters() {
         Owner owner = new Owner();
-        owner.setId(1);
+        //owner.setId(1);
         owner.setFirstName("John");
         owner.setLastName("Doe");
         owner.setAddress("123 Main St");

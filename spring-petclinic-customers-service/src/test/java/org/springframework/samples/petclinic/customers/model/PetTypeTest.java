@@ -8,7 +8,7 @@ class PetTypeTest {
     @Test
     void testPetTypeSettersAndGetters() {
         PetType type = new PetType();
-        type.setId(3);
+        //type.setId(3);
         type.setName("Cat");
 
         assertEquals(3, type.getId());
