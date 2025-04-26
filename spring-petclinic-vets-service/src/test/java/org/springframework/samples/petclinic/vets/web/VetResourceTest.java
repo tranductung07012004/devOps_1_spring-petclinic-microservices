@@ -21,17 +21,21 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
+import org.springframework.samples.petclinic.vets.model.Specialty;
 import org.springframework.samples.petclinic.vets.model.Vet;
 import org.springframework.samples.petclinic.vets.model.VetRepository;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.web.servlet.MockMvc;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+
 import static java.util.Arrays.asList;
 import static org.mockito.BDDMockito.given;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 /**
  * @author Maciej Szarlinski
@@ -49,15 +53,87 @@ class VetResourceTest {
 
     @Test
     void shouldGetAListOfVets() throws Exception {
-
+        // Arrange
         Vet vet = new Vet();
         vet.setId(1);
+        vet.setFirstName("James");
+        vet.setLastName("Carter");
 
         given(vetRepository.findAll()).willReturn(asList(vet));
 
+        // Act & Assert
         mvc.perform(get("/vets").accept(MediaType.APPLICATION_JSON))
             .andExpect(status().isOk())
-            .andExpect(jsonPath("$[0].id").value(1));
+            .andExpect(jsonPath("$[0].id").value(1))
+            .andExpect(jsonPath("$[0].firstName").value("James"))
+            .andExpect(jsonPath("$[0].lastName").value("Carter"))
+            .andExpect(jsonPath("$[0].specialties").isArray())
+            .andExpect(jsonPath("$[0].specialties").isEmpty());
+    }
+    
+    @Test
+    void shouldGetEmptyListWhenNoVets() throws Exception {
+        // Arrange
+        given(vetRepository.findAll()).willReturn(Collections.emptyList());
+        
+        // Act & Assert
+        mvc.perform(get("/vets").accept(MediaType.APPLICATION_JSON))
+            .andExpect(status().isOk())
+            .andExpect(content().contentType(MediaType.APPLICATION_JSON))
+            .andExpect(jsonPath("$").isArray())
+            .andExpect(jsonPath("$").isEmpty());
+    }
+    
+    @Test
+    void shouldGetVetsWithSpecialties() throws Exception {
+        // Arrange
+        Specialty radiology = new Specialty();
+        radiology.setName("radiology");
+        
+        Vet vet = new Vet();
+        vet.setId(1);
+        vet.setFirstName("Helen");
+        vet.setLastName("Leary");
+        vet.addSpecialty(radiology);
+        
+        given(vetRepository.findAll()).willReturn(asList(vet));
+        
+        // Act & Assert
+        mvc.perform(get("/vets").accept(MediaType.APPLICATION_JSON))
+            .andExpect(status().isOk())
+            .andExpect(jsonPath("$[0].id").value(1))
+            .andExpect(jsonPath("$[0].firstName").value("Helen"))
+            .andExpect(jsonPath("$[0].lastName").value("Leary"))
+            .andExpect(jsonPath("$[0].specialties").isArray())
+            .andExpect(jsonPath("$[0].specialties[0].name").value("radiology"));
+    }
+    
+    @Test
+    void shouldGetMultipleVets() throws Exception {
+        // Arrange
+        List<Vet> vets = new ArrayList<>();
+        
+        Vet vet1 = new Vet();
+        vet1.setId(1);
+        vet1.setFirstName("James");
+        vet1.setLastName("Carter");
+        vets.add(vet1);
+        
+        Vet vet2 = new Vet();
+        vet2.setId(2);
+        vet2.setFirstName("Helen");
+        vet2.setLastName("Leary");
+        vets.add(vet2);
+        
+        given(vetRepository.findAll()).willReturn(vets);
+        
+        // Act & Assert
+        mvc.perform(get("/vets").accept(MediaType.APPLICATION_JSON))
+            .andExpect(status().isOk())
+            .andExpect(jsonPath("$").isArray())
+            .andExpect(jsonPath("$.length()").value(2))
+            .andExpect(jsonPath("$[0].id").value(1))
+            .andExpect(jsonPath("$[1].id").value(2));
     }
 }
 // 1
