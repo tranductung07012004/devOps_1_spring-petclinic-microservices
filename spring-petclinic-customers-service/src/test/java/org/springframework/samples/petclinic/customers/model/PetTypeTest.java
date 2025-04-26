@@ -7,11 +7,11 @@ class PetTypeTest {
 
     @Test
     void testPetTypeSettersAndGetters() {
-        PetType type = new PetType();
-        //type.setId(3);
-        type.setName("Cat");
+        PetType petType = new PetType();
+        petType.setId(3);
+        petType.setName("bird");
 
-        assertEquals(3, type.getId());
-        assertEquals("Cat", type.getName());
+        assertEquals(3, petType.getId());
+        assertEquals("bird", petType.getName());
     }
 }
