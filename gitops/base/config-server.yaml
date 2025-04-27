@@ -2,7 +2,8 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: config-server
-  namespace: petclinic-dev
+  annotations:
+    argocd.argoproj.io/sync-wave: "-2"
 spec:
   selector:
     matchLabels:
@@ -14,7 +15,7 @@ spec:
     spec:
       containers:
       - name: config-server
-        image: ${DOCKER_USERNAME}/spring-petclinic-config-server:${IMAGE_TAG}
+        image: tranductung0701/spring-petclinic-config-server:latest
         ports:
         - containerPort: 8888
         resources:
@@ -29,12 +30,13 @@ apiVersion: v1
 kind: Service
 metadata:
   name: config-server
-  namespace: petclinic-dev
+  annotations:
+    argocd.argoproj.io/sync-wave: "-2"
 spec:
   selector:
     app: config-server
   ports:
   - port: 8888
     targetPort: 8888
-    nodePort: 30888
+    #nodePort: 30888
   type: NodePort
