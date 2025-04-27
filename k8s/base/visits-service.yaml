@@ -1,0 +1,39 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: visits-service
+  annotations:
+    argocd.argoproj.io/sync-wave: "0"
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: visits-service
+  template:
+    metadata:
+      labels:
+        app: visits-service
+    spec:
+      containers:
+      - name: visits-service
+        image: tranductung0701/spring-petclinic-visits-service:latest
+        ports:
+        - containerPort: 8080
+        env:
+        - name: SPRING_PROFILES_ACTIVE
+          value: docker
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: visits-service
+  annotations:
+    argocd.argoproj.io/sync-wave: "0"
+spec:
+  type: NodePort
+  ports:
+    - port: 8083
+      targetPort: 8080
+      #nodePort: 30083
+  selector:
+    app: visits-service
